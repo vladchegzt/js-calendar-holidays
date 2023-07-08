@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+body,
+html {
+  min-height: 100%;
+}
+
+html {
+  background: #000;
+  line-height: 1.15;
+}
+
