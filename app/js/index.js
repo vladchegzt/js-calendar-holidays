@@ -1,6 +1,5 @@
 'use strict';
 
-import myFunction from './app.js';
-import bootstrap from 'bootstrap';
+import myFunction from './ui.js';
 
 myFunction()
