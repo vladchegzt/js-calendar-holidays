@@ -4,17 +4,17 @@
 // Рішення має працювати незалежно від конкретних значень в масиві імен
 
 const userNames = ["Петрик Ольга Іванівна", "Гнатюк Петро Антонович", "Рудко Андрій Опанасович"];
-let initials, lettersArr;
+let initials;
 
-lettersArr = userNames.map(function(item, index){
+initials = userNames.map(function(item, index){
     return item.split(' ').map(function(userInitialWord){
         return userInitialWord.charAt(0)
-    })
+    }).join('.');
 });
 
-initials = lettersArr.map(function(item){
-   return item.join('.')
-});
+// initials = lettersArr.map(function(item){
+//    return item.join('.')
+// });
 
 console.log(initials); // [ "Г.П.А.", "П.О.І.", "Р.А.О."]
 
