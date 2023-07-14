@@ -2,6 +2,6 @@
 export default myFunction;
 
 export function myFunction() {
-    console.log(111);
+    // console.log(111);
   // …
 }
