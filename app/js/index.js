@@ -8,9 +8,9 @@ let initials;
 
 initials = userNames.map(function(item, index){
     return item.split(' ').map(function(userInitialWord){
-        return userInitialWord.charAt(0)
-    }).join('.');
-});
+        return userInitialWord.charAt(0) + '.'
+    }).join('');
+}).sort();
 
 // initials = lettersArr.map(function(item){
 //    return item.join('.')
