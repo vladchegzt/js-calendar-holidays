@@ -14,6 +14,7 @@
 const durationBetweenDates = (start = '30 Aug 2021', end = '03 Sep 2022', dimension = 'days') => {
     start = new Date(start).getTime();
     end = new Date(end).getTime();
+    dimension = dimension.toLowerCase()
 
     let result;
 
@@ -42,7 +43,7 @@ const durationBetweenDates = (start = '30 Aug 2021', end = '03 Sep 2022', dimens
 }
 
 durationBetweenDates('28 Aug 2006', '29 Aug 2006', 'seconds');
-durationBetweenDates('28 Aug 2006', '29 Aug 2006', 'minutes');
+durationBetweenDates('28 Aug 2006', '29 Aug 2006', 'minUTes');
 durationBetweenDates('05 Aug 2004', '01 Aug 2005', 'hours');
 durationBetweenDates('05 Sep 2006', '01 Jan 2006', 'days');
 durationBetweenDates('05 Aug 2006', '01 Aug 2006', 'SOkIabLE');
