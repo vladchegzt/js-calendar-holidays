@@ -9,7 +9,32 @@
     <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
-<div class="wrapper">  
+<main class="wrapper"> 
+    <div class="container">
+        <h1 class="main-title">Но пуйме рахувати час, нє?</h1>
+        <div class="app-container">
+            <div class="tab-difference">
+                <div class="field-groups">
+                    <p class="field-groups__label">Туй обери дати початку і кінця періоду</p>
+                    <div class="grid-6">
+                        <div class="field-item">
+                            <input type="date" class="date-range-item" id="startDate" name="startDate" value="">
+                        </div>
+                        <div class="field-item">
+                            <input type="date" class="date-range-item" id="endDate" name="endDate" value="" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-groups">
+                    <button class="btn btn-primary" id="result-btn">
+                        <span>Порахувати</span>
+                    </button>
+                    <div class="result-difference" id="result-difference"></div>
+                
+                </div>
+            </div>
+        </main>
+    </div> 
 </div>
 <script src="./js/index.js" type="module"></script>
 </body>
