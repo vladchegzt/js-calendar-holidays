@@ -1,5 +1,4 @@
 window.addEventListener("load", function() {
-    
     /**
      * tab 1 functional
     **/
@@ -12,12 +11,18 @@ window.addEventListener("load", function() {
     const resultElement = document.getElementById('result-difference');
     let resultValue = 0;
 
+    // validation listeners
+    const disablingResultBtn = () => {
+        resultBtn.disabled = inputStart.value.trim() === '' || inputEnd.value.trim() === '';
+    };
+
     inputsDates.forEach(item => {
         item.addEventListener('change', (event)=> {
             // console.log(el)
             if(item === inputStart) {
                 inputEnd.disabled = inputStart.value.trim() === '' ? true : false;
             }
+            disablingResultBtn()
         });
     });
 
@@ -27,36 +32,43 @@ window.addEventListener("load", function() {
         dimension = dimension.toLowerCase();
         let result;
 
-        console.log(start)
-        console.log(end)
-
         const diffMiliseconds = Math.floor(end - start);
 
         // convert to desirable dimension
         const dimensionActions = {
-            days: () => Math.floor(diffMiliseconds / (1000 * 60 * 60 * 24)),
-            hours: () => Math.floor(diffMiliseconds / (1000 * 60 * 60)),
-            minutes: () => Math.floor(diffMiliseconds / (1000 * 60)),
-            seconds: () => Math.floor(diffMiliseconds / 1000),
+            days: {
+                text: 'дні(-в)',
+                action: () => Math.floor(diffMiliseconds / (1000 * 60 * 60 * 24)),
+            },
+            hours: {
+                text: 'годин',
+                action: () => Math.floor(diffMiliseconds / (1000 * 60 * 60)),
+            },
+            minutes: {
+                text: 'хвилин',
+                action: () => Math.floor(diffMiliseconds / (1000 * 60)),
+            },
+            seconds: {
+                text: 'секунд',
+                action: () => Math.floor(diffMiliseconds / 1000 * 60),
+            },
         }
 
         // check if provided @dimension exist in obj
         if (Object.keys(dimensionActions).includes(dimension)) {
-            result = console.log(`Difference is ${dimensionActions[dimension]()} ${dimension}`);
+            result = `Різниця – ${dimensionActions[dimension].action()} ${dimensionActions[dimension].text}`;
         } else {
-            result = console.log(`Difference is ${dimensionActions.days()} days`)
+            result = `Різниця – ${dimensionActions.days.action()} ${dimensionActions.days.text}`;
         }
-        return result;
-            
+        // return result;
+        resultElement.textContent = result;
     }
 
     resultBtn.addEventListener('click', () => {
         countFinalResult(inputStart, inputEnd, 'days');
     })
 
-
     
     console.log();
-
-    // setDisabledEndDate();
+    disablingResultBtn();
 });

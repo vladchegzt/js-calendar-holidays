@@ -17,7 +17,7 @@ html {
 }
 
 html {
-  background: #000;
+  background: #24252A;
   line-height: 1.15;
   font-size: 10px;
   color: #fff;
@@ -38,8 +38,32 @@ html {
 
 .field-groups__label {
   font-size: 18px;
+  margin-bottom: 20px;
 }
 
 .main-title {
   margin-bottom:6rem;
+}
+
+.result-difference {
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  border: 1px solid $yellow;
+}
+
+.final-group {
+  margin-top: 4rem;
+}
+
+.field-groups {
+  margin: 20px 0;
+  background: #2C3033;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.pb-10 {
+  padding-bottom: 10px;
 }
