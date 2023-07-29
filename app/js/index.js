@@ -28,20 +28,6 @@ window.addEventListener("load", function() {
         };
     }
 
-       // 4. Напишіть функцію яка відфільтрує масив унікальних значень
-       const userNames = ['Петро', 'Емма', 'Петро', 'Емма', 'Марта', 'Яна', 'Василь', 'Антон', 'Олена', 'Емма'];
-
-       function filterUnique(array) {
-           const uniqNames = new Set();
-           for (let item of array) {
-               uniqNames.add(item)
-           }
-           return uniqNames
-       }
-       console.group();
-       console.log(filterUnique(userNames));
-       console.groupEnd();
-
     // /3. Напишіть функцію яка буде використовуватись для сортування масиву фільмів 
     console.group();
     const movies = [
@@ -72,29 +58,40 @@ window.addEventListener("load", function() {
     ];
     
     function byProperty(property, direction) {
-       return function (a, b) {
-        let iteration;
-        if(property === 'movieName') {
-            iteration = a[property].toLowerCase() - b[property].toLowerCase()
+        if(direction === '>') { 
+            return function (a,b) {
+                if(a[property] > b[property]) return 1;
+                if(a[property] === b[property]) return 0;
+                if(a[property] < b[property]) return -1;
+            }
         }
-        else {
-            iteration = a[property] - b[property]
-        }
-
-        if(direction === '>') {
-            return iteration
-        } else {
-            return -iteration;
-        }
-       }
+        return function (a, b) {
+            if (a[property] < b[property]) return 1;
+            if (a[property] === b[property]) return 0;
+            if (a[property] > b[property]) return -1;
+        };
     }
 
-    console.log(movies.sort(byProperty('releaseYear', '<'))); 
+    console.log(movies.toSorted(byProperty('releaseYear', '<'))); 
     // виведе масив фільмів посортованих по року випуску, від старішого до новішого
-    console.log(movies.sort(byProperty('runningTimeInMinutes', '<'))); 
+    console.log(movies.toSorted(byProperty('runningTimeInMinutes', '<'))); 
     // // виведе масив фільмів посортованих по їх тривалості, від найдовшого до найкоротшого
-    console.log(movies.sort(byProperty('movieName', '>'))); 
+    console.log(movies.toSorted(byProperty('movieName', '>'))); 
     // виведе масив фільмів посортованих по назві, в алфавітному порядку
+    console.groupEnd();
+
+    // 4. Напишіть функцію яка відфільтрує масив унікальних значень
+    const userNames = ['Петро', 'Емма', 'Петро', 'Емма', 'Марта', 'Яна', 'Василь', 'Антон', 'Олена', 'Емма'];
+
+    function filterUnique(array) {
+        const uniqNames = new Set();
+        for (let item of array) {
+            uniqNames.add(item)
+        }
+        return uniqNames
+    }
+    console.group();
+    console.log(filterUnique(userNames));
     console.groupEnd();
 
 });
