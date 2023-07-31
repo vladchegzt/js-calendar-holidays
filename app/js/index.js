@@ -60,15 +60,11 @@ window.addEventListener("load", function() {
     function byProperty(property, direction) {
         if(direction === '>') { 
             return function (a,b) {
-                if(a[property] > b[property]) return 1;
-                if(a[property] === b[property]) return 0;
-                if(a[property] < b[property]) return -1;
+                return a[property] > b[property] ?  1 : -1;
             }
         }
         return function (a, b) {
-            if (a[property] < b[property]) return 1;
-            if (a[property] === b[property]) return 0;
-            if (a[property] > b[property]) return -1;
+            return a[property] < b[property] ? 1 : -1;
         };
     }
 
