@@ -1,74 +1,41 @@
 window.addEventListener("load", function() {
-    /**
-     * tab 1 functional
-    **/
-
-    //dom elements
-    const inputsDates = document.querySelectorAll('.date-range-item');
-    const inputStart = document.getElementById('startDate');
-    const inputEnd = document.getElementById('endDate');
-    const resultBtn = document.getElementById('result-btn');
-    const resultElement = document.getElementById('result-difference');
-    let resultValue = 0;
-
-    // validation listeners
-    const disablingResultBtn = () => {
-        resultBtn.disabled = inputStart.value.trim() === '' || inputEnd.value.trim() === '';
-    };
-
-    inputsDates.forEach(item => {
-        item.addEventListener('change', (event)=> {
-            // console.log(el)
-            if(item === inputStart) {
-                inputEnd.disabled = inputStart.value.trim() === '' ? true : false;
+    // 1. Напишіть функцію detonatorTimer(delay) використовуючи setInterval  
+    // Вона виводить в консоль число кожну секунду, 
+    // починаючи з delay (ціле число) і в кінці замість 0 виведе 'BOOM!'
+    
+    // detonatorTimer(3);
+ 
+    function detonatorTimer(delay) {
+        let counter = delay;
+        const timer = setInterval(() => {
+            if (counter > 0) {
+                console.log(counter)
+                counter--
+                return
             }
-            disablingResultBtn()
-        });
-    });
-
-    const countFinalResult = (start, end, dimension = 'days') => {
-        start = new Date(start.value).getTime();
-        end = new Date(end.value).getTime();
-        dimension = dimension.toLowerCase();
-        let result;
-
-        const diffMiliseconds = Math.floor(end - start);
-
-        // convert to desirable dimension
-        const dimensionActions = {
-            days: {
-                text: 'дні(-в)',
-                action: () => Math.floor(diffMiliseconds / (1000 * 60 * 60 * 24)),
-            },
-            hours: {
-                text: 'годин',
-                action: () => Math.floor(diffMiliseconds / (1000 * 60 * 60)),
-            },
-            minutes: {
-                text: 'хвилин',
-                action: () => Math.floor(diffMiliseconds / (1000 * 60)),
-            },
-            seconds: {
-                text: 'секунд',
-                action: () => Math.floor(diffMiliseconds / 1000 * 60),
-            },
-        }
-
-        // check if provided @dimension exist in obj
-        if (Object.keys(dimensionActions).includes(dimension)) {
-            result = `Різниця – ${dimensionActions[dimension].action()} ${dimensionActions[dimension].text}`;
-        } else {
-            result = `Різниця – ${dimensionActions.days.action()} ${dimensionActions.days.text}`;
-        }
-        // return result;
-        resultElement.textContent = result;
+            if(counter === 0) {
+                console.log('BOOM!')
+                clearInterval(timer)
+            }
+        }, 1000)
     }
 
-    resultBtn.addEventListener('click', () => {
-        countFinalResult(inputStart, inputEnd, 'days');
-    })
+    // 2. Напишіть функцію detonatorTimer(delay) 
+    // використовуючи вкладений setTimeout 
+    detonatorTimer2(3);
 
-    
-    console.log();
-    disablingResultBtn();
+
+    function detonatorTimer2(delay) {
+        if (delay > 0) {
+            console.log(delay)
+            delay--
+            setTimeout(detonatorTimer2, 1000, delay)
+            return
+        }
+        if(delay === 0) {
+            console.log('BOOM!')
+        }
+
+    }
+
 });
