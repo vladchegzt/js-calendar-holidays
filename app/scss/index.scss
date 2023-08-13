@@ -22,6 +22,21 @@ html {
   font-size: 10px;
   color: #fff;
   font-family: 'Nunito', sans-serif;
+  &.light {
+    background: #fafafa;
+    color: #000;
+    .btn-toggle-bg {
+      background: #24252A;
+      color: #fff;
+    }
+  }
+  &.dark {
+    background: #24252A;
+    .btn-toggle-bg {
+      background: #fafafa;
+      color: #000;
+    }
+  }
 }
 
 .container {
@@ -66,4 +81,18 @@ html {
 
 .pb-10 {
   padding-bottom: 10px;
+}
+
+.wrapper-toggle {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.last-updated {
+  font-size: 20px;
 }
