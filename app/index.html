@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Список завдань</title>
+    <link rel="stylesheet" href="./css/main.css">
   </head>
   <body>
     <div class="container">
       <div class="create-task-block">
         <form class="create-task-form">
-          <h3 class="task-title">Нове завдання</h3>
-          <div class="input-field">
-            <input type="text" name="task" class="task-input" />
+          <div class="input-field input-add">
+            <input type="text" name="task" class="task-input" placeholder="Нове завдання" />
           </div>
-          <button type="submit" class="btn">Додати завдання</button>
+          <button type="submit" class="btn btn-primary ">Додати завдання</button>
         </form>
       </div>
 
@@ -29,7 +29,7 @@
           />
         </div>
         <ul class="collection"></ul>
-        <button class="clear-tasks">Видалити всі завдання</button>
+        <button class="clear-tasks btn-danger btn">Видалити всі завдання</button>
       </div>
     </div>
     <script src="./js/index.js"></script>

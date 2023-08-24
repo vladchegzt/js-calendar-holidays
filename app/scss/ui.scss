@@ -1,5 +1,6 @@
 $yellow: #F1AE01;
 $blue: #0099fa;
+$red: rgb(162, 78, 78);
 h1 {
     font-size: 3rem;
 }
@@ -124,6 +125,11 @@ input {
     &.btn-primary {
         background: $blue;
         border-color: $blue;
+        color: #fff;
+    }
+    &.btn-danger {
+        background: $red;
+        border-color: $red;
         color: #fff;
     }
     &:disabled {
