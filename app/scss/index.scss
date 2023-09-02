@@ -42,7 +42,7 @@ html {
 }
 
 .main-title {
-  margin-bottom:6rem;
+  margin: 4rem 0 3rem;
 }
 
 .result-difference {
@@ -66,4 +66,28 @@ html {
 
 .pb-10 {
   padding-bottom: 10px;
+}
+
+.presets-btns {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  padding-top: 12px;
+  .input-radio {
+    font-size: 14px;
+    padding-left: 0;
+  }
+}
+
+.main-field-date {
+  input {
+    margin: 0;
+  }
+}
+
+.main-dates-container {
+  display: grid;
+  grid-template-columns: repeat(2, 250px);
+  grid-gap: 30%;
+  align-items: flex-start;
 }

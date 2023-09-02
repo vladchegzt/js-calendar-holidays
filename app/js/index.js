@@ -8,24 +8,32 @@ window.addEventListener("load", function() {
     const inputStart = document.getElementById('startDate');
     const inputEnd = document.getElementById('endDate');
     const resultBtn = document.getElementById('result-btn');
+
+    const radioGroups = document.querySelectorAll('.js-radio-group');
+    const radioDimension = document.querySelectorAll('input[name="dimension"]');
     const resultElement = document.getElementById('result-difference');
     let resultValue = 0;
 
-    // validation listeners
-    const disablingResultBtn = () => {
+    //inputs checker
+    const datesChecker = () => {
+        //enable/disable main result btn
         resultBtn.disabled = inputStart.value.trim() === '' || inputEnd.value.trim() === '';
+
+        const startDate = new Date(inputStart.value);
+        const endDate = new Date(inputEnd.value);
+        // if (!isNaN(endDate) && isNaN(startDate)) {
+        //     const newStartDate = new Date(endDate);
+        //     newStartDate.setDate(endDate.getDate() - 2);
+
+        //     inputStart.valueAsDate = newStartDate;
+        // }
+
+        if (startDate > endDate) {
+            inputStart.value = inputEnd.value;
+        }
     };
 
-    inputsDates.forEach(item => {
-        item.addEventListener('change', (event)=> {
-            // console.log(el)
-            if(item === inputStart) {
-                inputEnd.disabled = inputStart.value.trim() === '' ? true : false;
-            }
-            disablingResultBtn()
-        });
-    });
-
+    //generate final result
     const countFinalResult = (start, end, dimension = 'days') => {
         start = new Date(start.value).getTime();
         end = new Date(end.value).getTime();
@@ -60,15 +68,52 @@ window.addEventListener("load", function() {
         } else {
             result = `Різниця – ${dimensionActions.days.action()} ${dimensionActions.days.text}`;
         }
-        // return result;
         resultElement.textContent = result;
     }
 
+    //listened for changing inputs
+    inputsDates.forEach(item => {
+        item.addEventListener('change', (event)=> {
+            if(item === inputStart) {
+                inputEnd.disabled = inputStart.value.trim() === '' ? true : false;
+            }
+            datesChecker()
+        });
+    });
+
     resultBtn.addEventListener('click', () => {
-        countFinalResult(inputStart, inputEnd, 'days');
+        let dimension;
+        for (const radioButton of radioDimension) {
+            if (radioButton.checked) {
+                dimension = radioButton.value;
+                break;
+            }
+        }
+        console.log(dimension)
+        countFinalResult(inputStart, inputEnd, dimension);
     })
 
     
-    console.log();
-    disablingResultBtn();
+    datesChecker();
+
+    /**
+     * styling and others
+    **/
+
+     //style for radio
+     radioGroups.forEach(group => {
+        const radioButtons = group.querySelectorAll('input[type="radio"]');
+        
+        radioButtons.forEach(radioButton => {
+            radioButton.addEventListener('change', () => {
+                const labels = group.querySelectorAll('label');
+                labels.forEach(label => {
+                    label.classList.remove('checked');
+                });
+                
+                const label = radioButton.closest('label');
+                label.classList.add('checked');
+            });
+        });
+    });
 });

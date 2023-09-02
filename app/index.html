@@ -11,42 +11,68 @@
 <body>
 <main class="wrapper"> 
     <div class="container">
-        <h1 class="main-title">Но пуйме рахувати час, нє?</h1>
+        <h1 class="main-title">Обрахунок часу</h1>
         <div class="app-container">
             <div class="tab-difference">
                 <div class="field-groups pb-10">
                     <p class="field-groups__label">Туй обери дати початку і кінця періоду</p>
-                    <div class="grid-6">
-                        <div class="field-item">
+                    <div class="main-dates-container">
+                        <div class="field-item main-field-date">
                             <input type="date" class="date-range-item" id="startDate" name="startDate" value="">
                         </div>
-                        <div class="field-item">
+                        <div class="field-item main-field-date">
                             <input type="date" class="date-range-item" id="endDate" name="endDate" value="" disabled>
+                            <div class="presets-btns js-radio-group">
+                                <label class="input-radio no-ind">+тиждень
+                                    <input type="radio" value="week" name="presets">
+                                </label>
+                                <label class="input-radio no-ind">+30 днів
+                                    <input type="radio" value="month" name="presets">
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="field-groups">
-                    <p class="field-groups__label">Бажані опції</p>
                     <div class="grid-6">
-                        <div class="radio-group-item js-radio-group-dimension">
-                            <label class="input-radio">Дні
-                                <input type="radio" name="radio" checked="checked">
-                                <div class="input-radio__indicator"></div>
-                            </label>
-                            <label class="input-radio">Години
-                                <input type="radio" name="radio">
-                                <div class="input-radio__indicator"></div>
-                            </label>
-                            <label class="input-radio">Хвилини
-                                <input type="radio" name="radio">
-                                <div class="input-radio__indicator"></div>
-                            </label>
-                            <label class="input-radio">Секунди
-                                <input type="radio" name="radio">
-                                <div class="input-radio__indicator"></div>
-                            </label>
+                        <div>
+                            <p class="field-groups__label">Порахувати кількість</p>
+                            <div class="radio-group-item js-radio-group-dimension js-radio-group">
+                                <label class="input-radio checked">Дні
+                                    <input type="radio" value="days" checked="checked" name="dimension">
+                                    <div class="input-radio__indicator"></div>
+                                </label>
+                                <label class="input-radio">Години
+                                    <input type="radio" value="hours" name="dimension">
+                                    <div class="input-radio__indicator"></div>
+                                </label>
+                                <label class="input-radio">Хвилини
+                                    <input type="radio" value="minutes" name="dimension">
+                                    <div class="input-radio__indicator"></div>
+                                </label>
+                                <label class="input-radio">Секунди
+                                    <input type="radio" value="seconds" name="dimension">
+                                    <div class="input-radio__indicator"></div>
+                                </label>
+                            </div>
                         </div>
-                        <div class="radio-group-item"></div>
+                        <div>
+                            <p class="field-groups__label">Дні</p>
+                            <div class="radio-group-item js-radio-group-dimension js-radio-group">
+                                <label class="input-radio checked">Всі дні
+                                    <input type="radio" name="daysType" value="alldays" checked="checked">
+                                    <div class="input-radio__indicator"></div>
+                                </label>
+                                <label class="input-radio">Будні дні
+                                    <input type="radio" name="daysType" value="workdays">
+                                    <div class="input-radio__indicator"></div>
+                                </label>
+                                <label class="input-radio">Вихідні дні
+                                    <input type="radio" name="daysType" value="weekends">
+                                    <div class="input-radio__indicator"></div>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="field-groups final-group">

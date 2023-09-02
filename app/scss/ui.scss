@@ -57,6 +57,13 @@ input {
     margin-bottom: 15px;
     cursor: pointer;
     font-size: 18px;
+    transition: .2s ease-in;
+    &:hover {
+        color: rgba(#fff, 0.7);
+    }
+    &.checked {
+        color: rgba($yellow, 1);
+    }
     input {
         position: absolute;
         z-index: -1;
@@ -131,4 +138,14 @@ input {
         color: #fff;
         cursor: not-allowed;
     }
+}
+
+.add-btn {
+    font-size: 13px;
+    background: transparent;
+    border:0;
+    color: #fafafa;
+    width: auto;
+    min-width: none;
+    padding: 3px 5px;
 }
