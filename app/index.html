@@ -18,17 +18,19 @@
                     <p class="field-groups__label">Туй обери дати початку і кінця періоду</p>
                     <div class="main-dates-container">
                         <div class="field-item main-field-date">
-                            <input type="date" class="date-range-item" id="startDate" name="startDate" value="">
+                            <input type="date" class="date-range-item pulse" id="startDate" name="startDate" value="">
                         </div>
                         <div class="field-item main-field-date">
                             <input type="date" class="date-range-item" id="endDate" name="endDate" value="" disabled>
                             <div class="presets-btns js-radio-group">
-                                <label class="input-radio no-ind">+тиждень
+                                <!-- <label class="input-radio no-ind">+тиждень
                                     <input type="radio" value="week" name="presets">
                                 </label>
                                 <label class="input-radio no-ind">+30 днів
                                     <input type="radio" value="month" name="presets">
-                                </label>
+                                </label> -->
+                                <button class="btn btn-preset add-btn" disabled data-presetdays="7">+тиждень</button>
+                                <button class="btn btn-preset add-btn" disabled data-presetdays="30">+30 днів</button>
                             </div>
                         </div>
                     </div>
@@ -74,18 +76,27 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="field-groups final-group">
-                    <div class="grid-6">
+                    <div class="cta-wrapper">
                         <button class="btn btn-primary" id="result-btn">
                             <span>Порахувати</span>
                         </button>
-                        <div class="result-difference" id="result-difference"></div>    
+                    </div>
+                </div>
+                <div class="field-groups result-container">
+                    <div class="result-container-diff">
+                        <h3 class="diff-notify field-groups__label" id="diff-notify">Pезультати:</h3>
+                        <div class="result-container-diff-list" id="diff-list"></div>
                     </div>
                 </div>
             </div>
         </main>
     </div> 
+</div>
+<div class="alert toasty-alert" id="toasty">
+    <div class="alert-body">
+        <div class="alert-msg">Дата початку пізніше дати end! Тому я поміняв їх місцями. Enjoy!</div>
+        <img src="./img/toasty.webp" class="toasty-img" alt="">
+    </div>
 </div>
 <script src="./js/index.js" type="module"></script>
 </body>

@@ -91,3 +91,28 @@ html {
   grid-gap: 30%;
   align-items: flex-start;
 }
+
+.result-diff-item {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  $bc: gray;
+  font-size: 14px;
+  border-bottom: 1px solid $bc;
+  border-top: 1px solid $bc;
+  margin-bottom: 12px;
+
+  div {
+    text-align: center;
+    padding: 16px;
+    border-right: 1px solid $bc;
+    position: relative;
+    &:first-child {
+      border-left: 1px solid $bc;
+    }
+  }
+}
+
+.cta-wrapper {
+  padding-top: 16px;
+  text-align: right;
+}

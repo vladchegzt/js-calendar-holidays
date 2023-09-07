@@ -1,5 +1,6 @@
 $yellow: #F1AE01;
 $blue: #0099fa;
+$green: #57D76B;
 h1 {
     font-size: 3rem;
 }
@@ -134,7 +135,7 @@ input {
         color: #fff;
     }
     &:disabled {
-        opacity: 0.5 !important;
+        opacity: 0.4 !important;
         color: #fff;
         cursor: not-allowed;
     }
@@ -148,4 +149,51 @@ input {
     width: auto;
     min-width: none;
     padding: 3px 5px;
+}
+
+.date-range-item.pulse {
+    box-shadow: 0 0 0 rgba(204,169,44, 0.4);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+      -moz-box-shadow: 0 0 0 0 rgba($yellow, 0.6);
+      box-shadow: 0 0 0 0 rgba($yellow, 0.6);
+    }
+    70% {
+        -moz-box-shadow: 0 0 0 10px rgba($yellow, 0);
+        box-shadow: 0 0 0 10px rgba($yellow, 0);
+    }
+    100% {
+        -moz-box-shadow: 0 0 0 0 rgba($yellow, 0);
+        box-shadow: 0 0 0 0 rgba($yellow, 0);
+    }
+}
+
+.alert {
+    position: fixed;
+    bottom: 10px;
+    right: -100%;
+    transition: .4s ease-in;
+    &.show {
+        right: 0;
+    }
+}
+
+.alert-body {
+    box-shadow: 2px 2px 18px -9px rgba($green, 0.4);
+    display: grid;
+    background: #24252a;
+    border-radius: 12px;
+    border: 1px solid $green;
+    overflow: hidden;
+    font-size: 14px;
+    grid-template-columns: 1fr 120px;
+    max-width: 320px;
+    align-items: center;
+}
+
+.alert-msg {
+    padding: 10px;
 }
