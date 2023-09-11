@@ -35,6 +35,7 @@ input {
         &:disabled {
             background: gray;
             border-color: gray;
+            cursor: not-allowed;
         }
     }
     &[type="date"]::-webkit-calendar-picker-indicator {

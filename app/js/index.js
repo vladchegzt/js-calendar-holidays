@@ -11,20 +11,27 @@ window.addEventListener("load", function() {
 
     const radioGroups = document.querySelectorAll('.js-radio-group');
     const radioDimension = document.querySelectorAll('input[name="dimension"]');
+    const radioDaysType = document.querySelectorAll('input[name="daysType"]');
     const btnPresets = document.querySelectorAll('button[data-presetdays]');
     const resultList = document.getElementById('diff-list');
 
     const alertAudio = new Audio('../img/toasty.mp3');
     let resultValue = 0;
 
-    function toggleBtnPresetsDisabled(disabled) {
-        btnPresets.forEach(button => {
-            if (disabled) {
-                button.setAttribute('disabled', 'disabled');
-            } else {
-                button.removeAttribute('disabled');
+    function filterDatesByDaysType(start, end, daysType) {
+        const filteredDates = [];
+        const currentDate = new Date(start);
+    
+        while (currentDate <= end) {
+            if (daysType === 'alldays' ||
+                (daysType === 'workdays' && currentDate.getDay() >= 1 && currentDate.getDay() <= 5) ||
+                (daysType === 'weekends' && (currentDate.getDay() === 0 || currentDate.getDay() === 6))) {
+                filteredDates.push(new Date(currentDate));
             }
-        });
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+    
+        return filteredDates;
     }
 
     function formatDate(date) {
@@ -34,10 +41,36 @@ window.addEventListener("load", function() {
         const year = date.getFullYear();
         return `${monthNames[monthIndex]} ${day} ${year}`;
     }
+
+    function generateId() {
+        return Date.now().toString(); 
+    }
+
+
+    function storeResultInLocaleStorage(start, end, result, id) {
+        let results;
+        const request = { id: id, start:start, end:end, result: result },
+        arrLength = 10;
+
+        if(localStorage.getItem('results') !== null) {
+            results = JSON.parse(localStorage.getItem('results'))
+        }else {
+            results = []
+        }
+        results.push(request)
+
+        if (results.length > arrLength) {
+            results.shift();
+        }
+
+        console.log(results)
+
+        localStorage.setItem('results', JSON.stringify(results))
+    }
     
-    function renderResultItem(start, end, result) {
+    function renderResultItem(start, end, result, id) {
         let createdEl = `
-            <div class='result-diff-item'>
+            <div class='result-diff-item' data-id='${id}'>
                 <div>${start}</div>
                 <div>${end}</div>
                 <div>${result}</div>
@@ -46,8 +79,8 @@ window.addEventListener("load", function() {
         return createdEl
     }
 
-    //inputs checker
-    const datesChecker = () => {
+    //enable/disable inputs and presets
+    function datesChecker () {
         //enable/disable main result btn
         resultBtn.disabled = inputStart.value.trim() === '' || inputEnd.value.trim() === '';
 
@@ -62,7 +95,14 @@ window.addEventListener("load", function() {
                 inputEnd.value = startDate.toISOString().split('T')[0];
             }
         }
-        toggleBtnPresetsDisabled(inputStart.value.trim() === '');
+        //set present enable, if startdate selected
+        btnPresets.forEach(button => {
+            if (inputStart.value.trim() === '') {
+                button.setAttribute('disabled', 'disabled');
+            } else {
+                button.removeAttribute('disabled');
+            }
+        });
     };
 
     //listener for changing inputs
@@ -85,45 +125,58 @@ window.addEventListener("load", function() {
                 const endDate = new Date(startDate.getTime() + daysVal * 24 * 60 * 60 * 1000);
                 inputEnd.value = endDate.toISOString().split('T')[0];
             }
+            datesChecker()
         });
     });
     
 
     //generate final result
-    const countFinalResult = (start, end, dimension = 'days') => {
+    const countFinalResult = (start, end, dimension = 'days', daysType = 'alldays') => {
         start = new Date(start.value);
         end = new Date(end.value);
         dimension = dimension.toLowerCase();
 
-        const options = { month: 'short', day: 'numeric', year: 'numeric' };
         const startFormatted = formatDate(start);
         const endFormatted = formatDate(end);
-        const diffMiliseconds = Math.floor(end.getTime() - start.getTime());
+
+        const filteredDates = filterDatesByDaysType(start, end, daysType);
+        const totalDiff = filteredDates.reduce((acc, currentDate) => {
+            const nextDate = new Date(currentDate);
+            nextDate.setDate(nextDate.getDate() + 1);
+            const diff = nextDate - currentDate;
+            return acc + diff;
+        }, 0);
+
+        const resultId = generateId()
 
         // convert to desirable dimension
         const dimensionActions = {
             days: {
                 text: 'дні(-в)',
-                action: () => Math.floor(diffMiliseconds / (1000 * 60 * 60 * 24)),
+                action: () => Math.floor(totalDiff / (1000 * 60 * 60 * 24)),
             },
             hours: {
-                text: 'годин',
-                action: () => Math.floor(diffMiliseconds / (1000 * 60 * 60)),
+                text: 'годин(-и)',
+                action: () => Math.floor(totalDiff / (1000 * 60 * 60)),
             },
             minutes: {
-                text: 'хвилин',
-                action: () => Math.floor(diffMiliseconds / (1000 * 60)),
+                text: 'хвилин(-и)',
+                action: () => Math.floor(totalDiff / (1000 * 60)),
             },
             seconds: {
-                text: 'секунд',
-                action: () => Math.floor(diffMiliseconds / 1000 * 60),
+                text: 'секунд(-и)',
+                action: () => Math.floor(totalDiff / 1000 * 60),
             },
         }
 
         const diffTxt = `${dimensionActions[dimension].action()} ${dimensionActions[dimension].text}`;
-        const li = renderResultItem(startFormatted, endFormatted, diffTxt);
+        const li = renderResultItem(startFormatted, endFormatted, diffTxt, resultId);
         resultList.insertAdjacentHTML('afterbegin', li);
+
+        storeResultInLocaleStorage(startFormatted, endFormatted, diffTxt, resultId)
     }
+
+    // console.log(JSON.parse(localStorage.getItem('results')))
 
     //CTA Btn click
     resultBtn.addEventListener('click', () => {
@@ -134,8 +187,14 @@ window.addEventListener("load", function() {
                 break;
             }
         }
-        console.log(dimension)
-        countFinalResult(inputStart, inputEnd, dimension);
+        let daysType;
+        for (const radioButton of radioDaysType) {
+            if (radioButton.checked) {
+                daysType = radioButton.value;
+                break;
+            }
+        }
+        countFinalResult(inputStart, inputEnd, dimension, daysType);
     })
 
     
@@ -171,4 +230,5 @@ window.addEventListener("load", function() {
             el.classList.remove('show')
         }, 3200)
     }
+
 });
