@@ -18,6 +18,15 @@ window.addEventListener("load", function() {
     const alertAudio = new Audio('../img/toasty.mp3');
     let resultValue = 0;
 
+    if(localStorage.getItem('results') !== null) {
+        const results = JSON.parse(localStorage.getItem('results'))
+        console.log(results)
+        for (let item of results) {
+            let li = renderResultItem(item.start, item.end, item.result, item.id)
+            resultList.insertAdjacentHTML('afterbegin', li);
+        }
+    } 
+
     function filterDatesByDaysType(start, end, daysType) {
         const filteredDates = [];
         const currentDate = new Date(start);
@@ -175,8 +184,6 @@ window.addEventListener("load", function() {
 
         storeResultInLocaleStorage(startFormatted, endFormatted, diffTxt, resultId)
     }
-
-    // console.log(JSON.parse(localStorage.getItem('results')))
 
     //CTA Btn click
     resultBtn.addEventListener('click', () => {
