@@ -32,6 +32,6 @@ gulp.task('browser-sync', function() {
 gulp.task('watch', function() {
     gulp.watch('app/scss/*.scss', gulp.parallel('scss'));
     gulp.watch('app/*.html', gulp.parallel('code'));
-    gulp.watch(['app/js/index.js', 'app/libs/**/*.js'], gulp.parallel('scripts'));
+    gulp.watch(['app/js/*.js', 'app/libs/**/*.js'], gulp.parallel('scripts'));
 });
 gulp.task('default', gulp.parallel('scss', 'scripts', 'browser-sync', 'watch'));

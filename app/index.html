@@ -6,98 +6,147 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Holy Holidays</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
 <main class="wrapper"> 
-    <div class="container">
-        <h1 class="main-title">Обрахунок часу</h1>
+    <div class="container js-tab-container">
+        <ul class="tabs-list">
+            <li class="tab-item">
+                <a class="js-tab-link main-title tab-li-link" href="tab-calculator-0">Обрахунок часу</a>
+            </li>
+            <li class="tab-item active">
+                <a class="js-tab-link main-title tab-li-link" href="tab-calculator-1">Календар</a>
+            </li>
+        </ul>
         <div class="app-container">
-            <div class="tab-difference">
-                <div class="field-groups pb-10">
-                    <p class="field-groups__label">Туй обери дати початку і кінця періоду</p>
-                    <div class="main-dates-container">
-                        <div class="field-item main-field-date">
-                            <input type="date" class="date-range-item pulse" id="startDate" name="startDate" value="">
+            <div class="tab-content">
+                <div id="tab-calculator-0" class="tab-pane">
+                    <div class="tab-difference tab-intro">
+                        <div class="field-groups pb-10">
+                            <p class="field-groups__label">Туй обери дати початку і кінця періоду</p>
+                            <div class="main-dates-container">
+                                <div class="field-item main-field-date">
+                                    <input type="date" class="date-range-item pulse" id="startDate" name="startDate" value="">
+                                </div>
+                                <div class="field-item main-field-date">
+                                    <input type="date" class="date-range-item" id="endDate" name="endDate" value="" disabled>
+                                    <div class="presets-btns js-radio-group">
+                                        <!-- <label class="input-radio no-ind">+тиждень
+                                            <input type="radio" value="week" name="presets">
+                                        </label>
+                                        <label class="input-radio no-ind">+30 днів
+                                            <input type="radio" value="month" name="presets">
+                                        </label> -->
+                                        <button class="btn btn-preset add-btn" disabled data-presetdays="7">+тиждень</button>
+                                        <button class="btn btn-preset add-btn" disabled data-presetdays="30">+30 днів</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="field-item main-field-date">
-                            <input type="date" class="date-range-item" id="endDate" name="endDate" value="" disabled>
-                            <div class="presets-btns js-radio-group">
-                                <!-- <label class="input-radio no-ind">+тиждень
-                                    <input type="radio" value="week" name="presets">
-                                </label>
-                                <label class="input-radio no-ind">+30 днів
-                                    <input type="radio" value="month" name="presets">
-                                </label> -->
-                                <button class="btn btn-preset add-btn" disabled data-presetdays="7">+тиждень</button>
-                                <button class="btn btn-preset add-btn" disabled data-presetdays="30">+30 днів</button>
+                        <div class="field-groups">
+                            <div class="grid-6">
+                                <div>
+                                    <p class="field-groups__label">Порахувати кількість</p>
+                                    <div class="radio-group-item js-radio-group-dimension js-radio-group">
+                                        <label class="input-radio checked">Дні
+                                            <input type="radio" value="days" checked="checked" name="dimension">
+                                            <div class="input-radio__indicator"></div>
+                                        </label>
+                                        <label class="input-radio">Години
+                                            <input type="radio" value="hours" name="dimension">
+                                            <div class="input-radio__indicator"></div>
+                                        </label>
+                                        <label class="input-radio">Хвилини
+                                            <input type="radio" value="minutes" name="dimension">
+                                            <div class="input-radio__indicator"></div>
+                                        </label>
+                                        <label class="input-radio">Секунди
+                                            <input type="radio" value="seconds" name="dimension">
+                                            <div class="input-radio__indicator"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="field-groups__label">Дні</p>
+                                    <div class="radio-group-item js-radio-group-dimension js-radio-group">
+                                        <label class="input-radio checked">Всі дні
+                                            <input type="radio" name="daysType" value="alldays" checked="checked">
+                                            <div class="input-radio__indicator"></div>
+                                        </label>
+                                        <label class="input-radio">Будні дні
+                                            <input type="radio" name="daysType" value="workdays">
+                                            <div class="input-radio__indicator"></div>
+                                        </label>
+                                        <label class="input-radio">Вихідні дні
+                                            <input type="radio" name="daysType" value="weekends">
+                                            <div class="input-radio__indicator"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cta-wrapper">
+                                <button class="btn btn-primary" id="result-btn">
+                                    <span>Порахувати</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="field-groups result-container">
+                            <div class="result-container-diff">
+                                <h3 class="diff-notify field-groups__label" id="diff-notify">Pезультати:</h3>
+                                <div class="result-container-diff-list" id="diff-list"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="field-groups">
-                    <div class="grid-6">
-                        <div>
-                            <p class="field-groups__label">Порахувати кількість</p>
-                            <div class="radio-group-item js-radio-group-dimension js-radio-group">
-                                <label class="input-radio checked">Дні
-                                    <input type="radio" value="days" checked="checked" name="dimension">
-                                    <div class="input-radio__indicator"></div>
-                                </label>
-                                <label class="input-radio">Години
-                                    <input type="radio" value="hours" name="dimension">
-                                    <div class="input-radio__indicator"></div>
-                                </label>
-                                <label class="input-radio">Хвилини
-                                    <input type="radio" value="minutes" name="dimension">
-                                    <div class="input-radio__indicator"></div>
-                                </label>
-                                <label class="input-radio">Секунди
-                                    <input type="radio" value="seconds" name="dimension">
-                                    <div class="input-radio__indicator"></div>
-                                </label>
+                <div id="tab-calculator-1" class="tab-pane active">
+                    <div class="tab-intro">
+                        <div class="field-groups">
+                            <div class="loader" id="countries-loader">
+                                <span></span>
+                            </div>
+                            <p class="field-groups__label">Туй обери країну і рік</p>
+                            <form action="" id="api-form">
+                                <div class="calendar-form-container">
+                                    <div class="field-item">
+                                        <select class="select-calendar" data-width="250px" name="countrySelect" id="countrySelect"></select>
+                                    </div>
+                                    <div class="field-item">
+                                        <select class="select-calendar" disabled data-width="250px" name="datesCalendar" id="datesCalendar"></select>
+                                    </div>
+                                    <div class="cta-calendar">
+                                        <button class="btn btn-primary" type="submit" id="request-btn" disabled="">
+                                            <span>Відобразити свята</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="field-groups">
+                            <div class="loader" style="display: none;" id="calendar-loader">
+                                <span></span>
+                            </div>
+                            <div class="result-container-calendar">
+                                <h3 class="diff-notify field-groups__label" id="calendar-notify">Pезультати: <span id="results-counter"></span></h3>
+                                <div class="calendar-results" id="calendar-results"></div>
                             </div>
                         </div>
-                        <div>
-                            <p class="field-groups__label">Дні</p>
-                            <div class="radio-group-item js-radio-group-dimension js-radio-group">
-                                <label class="input-radio checked">Всі дні
-                                    <input type="radio" name="daysType" value="alldays" checked="checked">
-                                    <div class="input-radio__indicator"></div>
-                                </label>
-                                <label class="input-radio">Будні дні
-                                    <input type="radio" name="daysType" value="workdays">
-                                    <div class="input-radio__indicator"></div>
-                                </label>
-                                <label class="input-radio">Вихідні дні
-                                    <input type="radio" name="daysType" value="weekends">
-                                    <div class="input-radio__indicator"></div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cta-wrapper">
-                        <button class="btn btn-primary" id="result-btn">
-                            <span>Порахувати</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="field-groups result-container">
-                    <div class="result-container-diff">
-                        <h3 class="diff-notify field-groups__label" id="diff-notify">Pезультати:</h3>
-                        <div class="result-container-diff-list" id="diff-list"></div>
                     </div>
                 </div>
             </div>
-        </main>
-    </div> 
-</div>
+        </div> 
+    </div>
+</main>
 <div class="alert toasty-alert" id="toasty">
     <div class="alert-body">
         <div class="alert-msg">Дата початку пізніше дати end! Тому я поміняв їх місцями. Enjoy!</div>
         <img src="./img/toasty.webp" class="toasty-img" alt="">
     </div>
 </div>
-<script src="./js/index.js" type="module"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="./js/index.js"></script>
+<script src="./js/api.js"></script>
 </body>
 </html>

@@ -20,7 +20,6 @@ window.addEventListener("load", function() {
 
     if(localStorage.getItem('results') !== null) {
         const results = JSON.parse(localStorage.getItem('results'))
-        console.log(results)
         for (let item of results) {
             let li = renderResultItem(item.start, item.end, item.result, item.id)
             resultList.insertAdjacentHTML('afterbegin', li);
@@ -238,4 +237,47 @@ window.addEventListener("load", function() {
         }, 3200)
     }
 
+     // Create instance for different tabs group
+     function initializeTabs(container) {
+        const listTabs = container.querySelectorAll('.tabs-list li');
+
+        if (listTabs.length !== 0) {
+            listTabs.forEach((tab, index) => {
+                const tabLink = tab.querySelector('.js-tab-link');
+                tabLink.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    showTab(index);
+                });
+            });
+        }
+
+        function showTab(tabNumber) {
+            listTabs.forEach((tab, index) => {
+                tab.classList.remove('active');
+
+                const tabContent = container.querySelector('.tab-content');
+                if (tabContent) {
+                    const tabPane = tabContent.children[index];
+                    if (tabPane) {
+                        tabPane.classList.remove('active');
+                    }
+                }
+
+                if (index === tabNumber) {
+                    tab.classList.add('active');
+                    if (tabContent) {
+                        const tabPane = tabContent.children[index];
+                        if (tabPane) {
+                            tabPane.classList.add('active');
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    // Init tabs
+    const tabContainers = document.querySelectorAll('.js-tab-container');
+    tabContainers.forEach((container) => initializeTabs(container));
+    //end tabs
 });
