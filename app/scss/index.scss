@@ -156,4 +156,129 @@ html {
 .calendar-form-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 20px;
+}
+
+.cta-calendar {
+  button {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width:920px) {
+  .container {
+    width: 600px;
+  }
+  .main-dates-container {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    justify-content: space-between;
+  }
+
+  .field-item input {
+      width: 100%;
+  }
+
+  .input-radio {
+      font-size: 16px;
+      display: flex;
+  }
+
+  .field-groups__label {
+      margin-bottom: 26px;
+      font-size: 16px;
+  }
+
+  .tabs-list .tab-li-link {
+      padding: 16px 20px;
+      font-size: 16px;
+  }
+
+  .input-radio__indicator {
+      width: 18px;
+      height: 18px;
+      top: 0;
+  }
+
+  .input-radio input:checked~.input-radio__indicator::after {
+      top: 6px;
+      left: 6px;
+  }
+  .calendar-form-container {
+    grid-gap: 14px;
+    & > div {
+      .select2-container--default .select2-selection--single {
+        width: 100%;
+      }
+      &:nth-child(1), &:nth-child(2) {
+        grid-column: span 1;
+      }
+      &:nth-child(3) {
+        grid-column: span 2;
+      }
+    }
+  }
+  
+}
+
+@media screen and (max-width:600px) {
+  .container {
+    width: 400px;
+    max-width: 100%;
+  }
+  .field-groups {
+    padding: 15px;
+  }
+  .tabs-list {
+    grid-gap: 10px;
+  }
+  .field-groups__label {
+    margin: 8px 0 18px 0;
+  }
+  .main-dates-container {
+    grid-template-columns: 1fr;
+    grid-gap: 12px;
+  }
+  .result-diff-item {
+    font-size: 13px;
+    div {
+      padding: 12px 10px;
+    }
+  }
+  .cta-wrapper {
+    .btn {
+      width: 100%;
+    }
+  }
+  .calendar-form-container {
+    grid-template-columns: 1fr;
+    & > div {
+      &:nth-child(1), &:nth-child(2) {
+        grid-column: span 1;
+      }
+      &:nth-child(3) {
+        grid-column: span 1;
+      }
+    }
+  }
+  .result-diff-item.result-calendar-item {
+    grid-template-columns: 40px 1fr 120px;
+    div:first-child {
+    
+    }
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .input-radio {
+    font-size: 14px;
+  }
+  .input-radio__indicator {
+    width: 16px;
+    height: 16px;
+  }
+  .input-radio input:checked~.input-radio__indicator::after {
+    top: 5px;
+    left: 5px;
+  }
 }

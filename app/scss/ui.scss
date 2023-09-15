@@ -19,7 +19,7 @@ input {
         border: 1px solid transparent;
         height: 40px;
         padding: 8px 18px 5px 18px;
-        width: 250px;
+        width: 263px;
         margin: 0 20px 20px 0;
         max-width: 576px;
         font-size: 14px;
@@ -149,7 +149,8 @@ input {
     border:0;
     color: #fafafa;
     width: auto;
-    min-width: none;
+    min-width: auto;
+    height: 24px;
     padding: 3px 5px;
 }
 

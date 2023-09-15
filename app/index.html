@@ -13,16 +13,16 @@
 <main class="wrapper"> 
     <div class="container js-tab-container">
         <ul class="tabs-list">
-            <li class="tab-item">
+            <li class="tab-item active">
                 <a class="js-tab-link main-title tab-li-link" href="tab-calculator-0">Обрахунок часу</a>
             </li>
-            <li class="tab-item active">
+            <li class="tab-item">
                 <a class="js-tab-link main-title tab-li-link" href="tab-calculator-1">Календар</a>
             </li>
         </ul>
         <div class="app-container">
             <div class="tab-content">
-                <div id="tab-calculator-0" class="tab-pane">
+                <div id="tab-calculator-0" class="tab-pane active">
                     <div class="tab-difference tab-intro">
                         <div class="field-groups pb-10">
                             <p class="field-groups__label">Туй обери дати початку і кінця періоду</p>
@@ -100,7 +100,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="tab-calculator-1" class="tab-pane active">
+                <div id="tab-calculator-1" class="tab-pane">
                     <div class="tab-intro">
                         <div class="field-groups">
                             <div class="loader" id="countries-loader">
@@ -110,10 +110,10 @@
                             <form action="" id="api-form">
                                 <div class="calendar-form-container">
                                     <div class="field-item">
-                                        <select class="select-calendar" data-width="250px" name="countrySelect" id="countrySelect"></select>
+                                        <select class="select-calendar" data-width="100%" name="countrySelect" id="countrySelect"></select>
                                     </div>
                                     <div class="field-item">
-                                        <select class="select-calendar" disabled data-width="250px" name="datesCalendar" id="datesCalendar"></select>
+                                        <select class="select-calendar" disabled data-width="100%" name="datesCalendar" id="datesCalendar"></select>
                                     </div>
                                     <div class="cta-calendar">
                                         <button class="btn btn-primary" type="submit" id="request-btn" disabled="">
