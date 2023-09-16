@@ -142,6 +142,7 @@ window.addEventListener("load", function() {
     const countFinalResult = (start, end, dimension = 'days', daysType = 'alldays') => {
         start = new Date(start.value);
         end = new Date(end.value);
+        start.setDate(start.getDate() + 1);
         dimension = dimension.toLowerCase();
 
         const startFormatted = formatDate(start);
